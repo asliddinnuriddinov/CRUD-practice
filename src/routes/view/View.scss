@@ -1,0 +1,72 @@
+.profile{
+    display: flex;
+    align-items: flex-start;
+    margin-top: 25px;
+    gap: 0 20px;
+}
+.delete-btn:hover{
+    background-color: rgba(255, 0, 0, 0.76);
+}
+.edit-btn{
+    border: none;
+    background: gold;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 12px;
+    padding: 9px 22px;
+    cursor: pointer;
+    &:hover{
+        opacity: .72;
+    }
+}
+.profile__info p{
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.edit{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+    background-color: rgba(0, 0, 0, 0.308);
+}
+.edit__wrapper{
+    width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+}
+.edit__wrapper form{
+    flex-direction: column;
+    gap: 12px 0;
+    input{
+        width: 100%;
+        color: black;
+    }
+}
+.edit-btn-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.edit-btn-2{
+    width: 48%;
+}
+.cancel-btn{
+    border: none;
+    background: black;
+    color: #fff;
+    border-radius: 12px;
+    font-size: 18px;
+    padding: 8px 12px;
+    width: 48%;
+    cursor: pointer;
+    &:hover{
+        opacity: .83;
+    }
+}
