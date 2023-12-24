@@ -85,6 +85,27 @@ const Main = () => {
     setDateUsed(true);
   }
 
+  const renderRow = (x, i) => (
+    <tr onClick={(e) => navigate(`/view/${x.id}`)} key={i}>
+      <td>{x.name}</td>
+      <td>{x.username}</td>
+      <td>{x.email}</td>
+      <td>{x.roleName}</td>
+      <td>{x.address}</td>
+      <td>{x.contact}</td>
+      <td>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            deleteUser(x.id);
+          }}
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  );
+
   console.log(dateData);
 
   // console.log(new Date(data?.at(data.length-1)?.createdAt*1000),new Date().getTime());
@@ -120,7 +141,7 @@ const Main = () => {
         <Loader />
       ) : (
         <>
-          {dateUsed && dateData.length === 0 ? (
+          {(dateUsed && dateData.length === 0) || (!dateUsed && data.length === 0) ? (
             <div className="no-user">
               <h1>Users do not exist</h1>
             </div>
@@ -159,25 +180,6 @@ const Main = () => {
     </Container>
   );
 };
-const renderRow = (x, i) => (
-  <tr onClick={(e) => navigate(`/view/${x.id}`)} key={i}>
-    <td>{x.name}</td>
-    <td>{x.username}</td>
-    <td>{x.email}</td>
-    <td>{x.roleName}</td>
-    <td>{x.address}</td>
-    <td>{x.contact}</td>
-    <td>
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          deleteUser(x.id);
-        }}
-      >
-        Delete
-      </button>
-    </td>
-  </tr>
-);
+
 
 export default Main;
