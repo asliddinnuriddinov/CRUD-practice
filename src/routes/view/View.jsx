@@ -20,22 +20,27 @@ const View = () => {
   const [address,setAddress]=useState("")
   const [isEdtiting,setIsEditing]=useState(false)
 
+
+  function getSingleUser(){
+    instance
+    .get(`/users/${id}`)
+    .then((responce) => {
+      setProfile(responce.data);
+      setDate(new Date(responce.data.createdAt * 1000));
+      setName(responce.data.name)
+      setUsername(responce.data.username)
+      setEmail(responce.data.email)
+      setAddress(responce.data.address)
+      setContact(responce.data.contact)
+      setRole(responce.data.roleName)
+      setIsLoading(false)
+    })
+    .catch((err) => {console.error(err);setIsLoading(false)});
+  }
+
   useEffect(() => {
     setIsLoading(true)
-    instance
-      .get(`/users/${id}`)
-      .then((responce) => {
-        setProfile(responce.data);
-        setDate(new Date(responce.data.createdAt * 1000));
-        setName(responce.data.name)
-        setUsername(responce.data.username)
-        setEmail(responce.data.email)
-        setAddress(responce.data.address)
-        setContact(responce.data.contact)
-        setRole(responce.data.roleName)
-        setIsLoading(false)
-      })
-      .catch((err) => {console.error(err);setIsLoading(false)});
+    getSingleUser()
   }, []);
 
   function deleteUser(){
@@ -57,25 +62,13 @@ function editUser(e){
     email:email,
     contact:contact,
     roleName:role,
-    address:address
+    address:address,
+    modifiedAt:new Date().getTime()/1000
   })
   .then(responce=>{
     setEditOpen(false)
     setIsEditing(false)
-    instance
-    .get(`/users/${id}`)
-    .then((responce) => {
-      setProfile(responce.data);
-      setDate(new Date(responce.data.createdAt * 1000));
-      setName(responce.data.name)
-      setUsername(responce.data.username)
-      setEmail(responce.data.email)
-      setAddress(responce.data.address)
-      setContact(responce.data.contact)
-      setRole(responce.data.roleName)
-      setIsLoading(false)
-    })
-    .catch((err) => {console.error(err);setIsLoading(false)});
+    getSingleUser()
   })
   .catch(err=>{
     console.error(err)
@@ -83,6 +76,8 @@ function editUser(e){
     setIsEditing(false)
   })
 }
+
+
   return (
     isLoading?
     <Loader/>

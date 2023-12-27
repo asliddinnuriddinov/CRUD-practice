@@ -14,6 +14,15 @@ const Create = () => {
     const [address,setAddress]=useState("")
     const [isLoading,setIsLoading]=useState(false)
 
+    function clearForm(){
+        setName("")
+        setUsername('')
+        setEmail('')
+        setContact('')
+        setRole('')
+        setAddress('')
+    }
+
     function createUser(e){
         e.preventDefault()
         setIsLoading(true)
@@ -27,22 +36,12 @@ const Create = () => {
         })
         .then(responce=>{
             setIsLoading(false)
-            setName("")
-            setUsername('')
-            setEmail('')
-            setContact('')
-            setRole('')
-            setAddress('')
+            clearForm()
         })
         .catch(err=>{
             console.error(err)
             setIsLoading(false)
-            setName("")
-            setUsername('')
-            setEmail('')
-            setContact('')
-            setRole('')
-            setAddress('')
+            clearForm()
         })
     }
   return (

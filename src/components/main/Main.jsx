@@ -4,11 +4,9 @@ import Container from "../../utils/Utils";
 import instance from "../../api/";
 import Loader from "../loader/Loader";
 import { useNavigate } from "react-router-dom";
-import { Logger } from "sass";
 
 const Main = () => {
   const [data, setData] = useState([]);
-  const [searchData, setSearchData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
@@ -36,7 +34,7 @@ const Main = () => {
     instance
       .get(`/users?name=${search}`)
       .then((response) => {
-        setSearchData(response.data);
+        setData(response.data);
       })
       .catch((err) => console.error(err));
   }, [search]);
@@ -66,17 +64,11 @@ const Main = () => {
     setSelectedData(data.filter((x) => x.roleName == filter));
   }
 
-  // function dateFilter(time){
-  //     setDateData(data.filter(x=>x.createdAt<=time/1000))
-  //     console.log(time);
-  // }
   function dateFilter(time) {
-    // Convert the selected date to a timestamp representing the end of the day
     const endOfDayTimestamp = new Date(
       new Date(time).setHours(23, 59, 59, 999)
     ).getTime();
 
-    // Filter users based on the timestamp representing the end of the day
     setDateData(
       data.filter(
         (x) => new Date(x.createdAt * 1000).getTime() <= endOfDayTimestamp
@@ -106,7 +98,6 @@ const Main = () => {
     </tr>
   );
 
-  console.log(dateData);
 
   // console.log(new Date(data?.at(data.length-1)?.createdAt*1000),new Date().getTime());
   return (
@@ -163,8 +154,8 @@ const Main = () => {
                             (dateUsed && dateData.length > 0) ? 
                             dateData.map((x, i) => renderRow(x, i)) :
                             (
-                                (search.length > 0 && searchData.length > 0) ? 
-                                searchData.map((x, i) => renderRow(x, i)) :
+                                (search.length > 0 && data.length > 0) ? 
+                                data.map((x, i) => renderRow(x, i)) :
                                 (
                                     (selectedFilter !== 'all' && selectedData.length > 0) ? 
                                     selectedData.map((x, i) => renderRow(x, i)) :
